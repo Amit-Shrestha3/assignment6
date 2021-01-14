@@ -2,7 +2,7 @@ package com.amit.softuser
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+
 import com.amit.softuser.fragments.AboutFragment
 import com.amit.softuser.fragments.AddFragment
 import com.amit.softuser.fragments.HomeFragment
