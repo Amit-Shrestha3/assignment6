@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.amit.softuser.R
 import com.google.android.material.button.MaterialButton
@@ -26,8 +27,9 @@ class AddFragment : Fragment() {
     private lateinit var rdg : RadioGroup
     private lateinit var address : EditText
     private lateinit var add : MaterialButton
+    private lateinit var Imgurl: EditText
 
-
+    private lateinit var gender :String
 
 
     override fun onCreateView(
@@ -50,18 +52,30 @@ class AddFragment : Fragment() {
         rdg = view!!.findViewById(R.id.radio)
         address = view!!.findViewById(R.id.address)
         add = view!!.findViewById(R.id.studentadd)
+        Imgurl = view!!.findViewById(R.id.Imgurl)
 
 
+        male.setOnClickListener(){
+            gender="Male"
+        }
+        female.setOnClickListener(){
+            gender="Female"
+        }
+        others.setOnClickListener(){
+            gender="Others"
+        }
         add.setOnClickListener(){
-            getData(fullname,agetxt,address)
+            getData(fullname,agetxt,address,gender, Imgurl)
         }
 
     }
 
-    private fun getData(fullname: EditText?, age: EditText?, address: EditText?) {
+    private fun getData(fullname: EditText?, agetxt: EditText?, address: EditText?, gender: String, Imgurl: EditText) {
         val fullName :String = fullname?.text.toString()
-        val ageS :String = agetxt.text.toString()
+        val ageS :String = agetxt?.text.toString()
         val Address :String = address?.text.toString()
+        val gen :String = gender
+        val url :String = Imgurl.text.toString()
 
 
          if (TextUtils.isEmpty(fullName)){
@@ -69,8 +83,8 @@ class AddFragment : Fragment() {
              fullname?.requestFocus()
          }
             else if (TextUtils.isEmpty(ageS)){
-            agetxt.setError("Please enter the age")
-            agetxt.requestFocus()
+            agetxt?.setError("Please enter the age")
+            agetxt?.requestFocus()
 
         }
 
@@ -79,12 +93,23 @@ class AddFragment : Fragment() {
             address?.requestFocus()
 
         }
+        else if (TextUtils.isEmpty(url)){
+            Imgurl.setError("Please enter the address")
+            Imgurl.requestFocus()
+
+        }
+        else if (gen.isEmpty()){
+            Toast.makeText(context,"Enter your gender",Toast.LENGTH_SHORT).show()
+
+         }
 
         else {
              Log.d(TAG, "getData: "+
                     "Full Name: "+fullName+
-                    "Age: "+ageS+
-                    "Address: "+Address)
+                    "Age: "+ ageS+
+                    "Address: "+ Address+
+                    "Gender: "+ gender
+                    )
          }
 
     }
