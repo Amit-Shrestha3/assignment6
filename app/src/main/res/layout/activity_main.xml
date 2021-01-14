@@ -53,16 +53,15 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        >
+        app:passwordToggleEnabled="true">
 
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Password"/>
-
-
+            android:hint="Password"
+            android:inputType="textPassword"/>
 
 
     </com.google.android.material.textfield.TextInputLayout>

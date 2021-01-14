@@ -1,6 +1,7 @@
 package com.amit.softuser.fragments
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -13,7 +14,11 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.amit.softuser.R
+import com.amit.softuser.adapter.StudentAdapter
+import com.amit.softuser.model.Storage
+import com.amit.softuser.model.User
 import com.google.android.material.button.MaterialButton
+import java.util.ArrayList
 
 
 class AddFragment : Fragment() {
@@ -66,6 +71,7 @@ class AddFragment : Fragment() {
         }
         add.setOnClickListener(){
             getData(fullname,agetxt,address,gender, Imgurl)
+
         }
 
     }
@@ -82,26 +88,28 @@ class AddFragment : Fragment() {
              fullname?.setError("Please enter the name")
              fullname?.requestFocus()
          }
-            else if (TextUtils.isEmpty(ageS)){
+         else if (TextUtils.isEmpty(ageS)){
             agetxt?.setError("Please enter the age")
             agetxt?.requestFocus()
 
         }
-
-            else if (TextUtils.isEmpty(Address)){
+         else if (TextUtils.isEmpty(Address)){
             address?.setError("Please enter the address")
             address?.requestFocus()
 
         }
         else if (TextUtils.isEmpty(url)){
-            Imgurl.setError("Please enter the address")
+            Imgurl.setError("Please enter the image url")
             Imgurl.requestFocus()
 
         }
         else if (gen.isEmpty()){
             Toast.makeText(context,"Enter your gender",Toast.LENGTH_SHORT).show()
 
-         }
+        }
+        else if (!url.contains("https://")){
+             Toast.makeText(context,"Url invalid",Toast.LENGTH_SHORT).show()
+        }
 
         else {
              Log.d(TAG, "getData: "+
@@ -110,7 +118,16 @@ class AddFragment : Fragment() {
                     "Address: "+ Address+
                     "Gender: "+ gender
                     )
-         }
 
+             Storage().appendStudent(User(fullName, ageS, Address, gender,url))
+             Toast.makeText(context,"Student added",Toast.LENGTH_SHORT).show()
+
+
+             fullname?.setText("")
+             agetxt?.setText("")
+             address?.setText("")
+             rdg.clearCheck()
+             Imgurl.setText("")
+         }
     }
 }

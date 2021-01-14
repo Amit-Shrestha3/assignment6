@@ -6,12 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.amit.softuser.R
+import com.amit.softuser.adapter.StudentAdapter
+import com.amit.softuser.model.Storage
+import com.amit.softuser.model.User
+import java.util.ArrayList
 
 
 class HomeFragment : Fragment() {
-private lateinit var  student : RecyclerView
+private lateinit var  studentRecyclerView : RecyclerView
+private var storage =  Storage()
 
 
     override fun onCreateView(
@@ -28,7 +34,16 @@ private lateinit var  student : RecyclerView
 
         super.onActivityCreated(savedInstanceState)
 
-        student= view!!.findViewById(R.id.studentRecyclerView)
+        studentRecyclerView= view!!.findViewById(R.id.studentRecyclerView)
+        studentRecyclerView.layoutManager = LinearLayoutManager(context)
 
+        getData()
+    }
+
+    private fun getData(){
+        val arr = storage.returnStudent()
+
+        val adapter = StudentAdapter(context, arr)
+        studentRecyclerView.adapter = adapter
     }
 }
